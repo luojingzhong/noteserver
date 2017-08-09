@@ -1,0 +1,37 @@
+<div class="global row">
+  <div class="log log_in" tabindex='-1' id='login'>
+  	<dl>
+  		<dt>
+  			<div class='header'>
+          <h3>登&nbsp;录</h3>
+  			</div>
+  		</dt>
+      <%= form_for :session, url: sessions_path,method: :post,:html =>{class: 'form-horizontal'} do |f| %>
+        <dt>
+        	<div class='form-group'>
+            <%= f.label '邮 箱：',class: 'col-sm-2 control-label',for: 'email' %>
+            <div class="col-sm-10">
+              <%= f.text_field :email,tabindex: '1',class: 'form-control',id: 'email' %>
+            </div>
+        	</div>
+        </dt>
+        <dt>
+        	<div class='form-group'>
+            <%= f.label '密 码：',class: 'col-sm-2 control-label' %>
+            <%= f.password_field :password,tabindex: '2',class: 'form-control' %>
+        	</div>
+        </dt>
+        <dt>
+          <div class="form-group">
+            <div style="width: auto;display: table;margin-left: auto;margin-right: auto;">
+              <%= f.submit "登录", class: "btn btn-default btn-primary" %>
+              <span style="width: 20px"> </span>
+              <%= link_to "注册", new_user_path, class: 'btn btn-default btn-primary center-block' %>
+            </div>
+          </div>
+        </dt>
+      <% end %>
+  	</dl>
+  </div>
+</div>
+
