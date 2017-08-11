@@ -11,6 +11,7 @@ gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '~> 1.2'
 gem 'rake', '10.4.2'
 gem 'bootstrap-sass', '2.3.2.0'
+gem 'i18n', '0.8.6'
 group :doc do
   gem 'sdoc', require: false
 end

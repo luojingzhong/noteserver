@@ -1,0 +1,63 @@
+<% provide(:title,"注册") %>
+<div class="global row">
+  <div class="log log_in" tabindex='-1'>
+    <dl>
+      <dt>
+        <div class='header'>
+          <h3>注&nbsp;册&nbsp;&nbsp;</h3>
+        </div>
+      </dt>
+      <%= form_for @user,method: :post,:html =>{class: 'form-horizontal'} do |f| %>
+        <dt>
+          <%= render 'shares/error_messages',target: @user %>
+        </dt>
+        <dt>
+          <div class='form-group'>
+            <%= f.label '用 户 名：',class: 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.text_field :name,class: 'form-control' %>
+            </div>
+          </div>
+        </dt>
+        <dt>
+          <div class='form-group'>
+            <%= f.label '邮 箱：',class: 'col-sm-2 control-label',for: 'email' %>
+            <div class="col-sm-10">
+              <%= f.text_field :email,class: 'form-control',id: 'email' %>
+            </div>
+          </div>
+        </dt>
+        <dt>
+          <div class='form-group'>
+            <%= f.label '密 码：',class: 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.password_field :password,class: 'form-control',id: 'password' %>
+            </div>
+          </div>
+        </dt>
+        <dt>
+          <div class='form-group'>
+            <%= f.label '确 认 密 码：',class: 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.password_field :password_confirmation,class: 'form-control',id:'password_confirmation' %>
+            </div>
+          </div>
+        </dt>
+        <dt>
+          <div class="form-group">
+            <div class="center">
+              <%= f.submit "注册", class: "btn btn-default btn-primary",id: 'regist',onclick: 'return checkinfo()' %>
+              <span style="width: 20px"> </span>
+              <%= link_to "返回", root_path, class: 'btn btn-default btn-primary' %>
+            </div>
+          </div>
+        </dt>
+      <% end %>
+    </dl>
+  </div>
+</div>
+<script type="text/javascript">
+  $('.close').click(function(){
+    $("#errors").hide();
+  })
+</script>
