@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+      <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+      <%= csrf_meta_tags %>
+      <meta charset="utf-8">
+      <title>我的笔记</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="x-pjax-version" content="v173">
+      <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/favico-144-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/favico-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/favico-72-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" href="ico/favico-57-precomposed.png">
+      <link rel="shortcut icon" href="ico/favico.png">
+      <link rel="shortcut icon" href="ico/favico.ico"> -->
+    </head>
+    <body>
+      <div class="modal fade" id="addNotebook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <%= form_for @book=Notebook.new,remote: true do|f| %>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">添加笔记本</h4>
+            </div>
+            <div class="modal-body">
+              <%= f.text_field :name,class: 'form-control',placeholder: '请输入笔记本名' %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <%= f.submit '新增',class: 'btn btn-primary' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="navbar navbar-inverse navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">NOTES</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <!-- <li><a href="#">Link</a></li> -->
+              <li class="drop-down dropdown">
+                <a href="#" class="drop-btn dropdown-toggle" data-toggle="dropdown">
+                  <%= current_user.name %>
+                  <b class="caret"></b>
+                </a>
+                <div class="drop-down-content">
+                  <%= link_to '退出',session_path,method: 'delete' %>
+                  <!-- <%= link_to '修改密码',edit_user_path(current_user) %> -->
+                </div>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+              <div class="input-group">
+                <input type="text" class="form-control search" placeholder="请输入笔记标题">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default active">搜索</button>
+                </span>
+              </div>
+            </form>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <div id="main">
+        <div id="notebooks">
+          <%= render 'notebooks/books'  %>
+        </div>
+        <div class="notes">
+          <div id="notes" class="notelist">
+            <div class="add-note text-center">
+              <a type="button">
+                添加笔记
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </a>
+            </div>
+            <div>
+              <table class="table table-striped">
+                <tr>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div id="editor" class="editor">
+            <%= form_tag edit_user_path(current_user),method: 'get',remote: true,:multipart => true do %>
+              <div class="input-group title">
+                <%= text_field 'note','title',class: 'form-control',placeholder: '请输入笔记标题' %>
+                <div class="input-group-btn">
+                  <%= submit_tag "保 存",class: 'btn btn-primary save' %>
+                </div>
+              </div>
+              <%= text_area 'note','content',id: 'myEditor' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-fixed-bottom">
+        <footer class="text-center">
+          <p>&copy; 2017 jiufong@126.com</p>
+          <div style='position:absolute;top:5PX;height:30px;right:20px;line-height:26px;border:1px solid #0E7D76;display:none;background:#fff'>
+            <strong style='color:#0E7D76;margin:0 10px;'></strong>
+          </div>
+        </footer>
+      </div>
+		<script type="text/javascript">
+			//加载DOM之后处理页面高度
+			function get_dom(e){
+				return document.getElementById(e);
+			}
+			function set_height(){
+				var pc_height=window.innerHeight;
+				pc_height=pc_height-145;
+				get_dom('notes').style.height=(pc_height)+'px';
+        get_dom('editor').style.height=(pc_height)+'px';
+        // get_dom('myEditor').style.height=(pc_height-100)+'px';
+        $('.simditor-body').css('height',(pc_height-150)+'px')
+			}
+			function myEditorWidth(){
+				var dom=get_dom('third_side_right');
+				var style=dom.currentStyle||window.getComputedStyle(dom, null);
+				get_dom('myEditor').style.width=style.width;
+			}
+			
+			//改变窗口大小时调整页面尺寸
+			window.onresize=function(){
+				set_height();
+				var width=$('#third_side_right').width()-35;
+				$('.edui-container,.edui-editor-body').width(width);
+				$('#myEditor').width(width-20);
+			};
+      var editor = new Simditor({
+        textarea: $('#myEditor'),
+        placeholder: '请输入正文',
+        toolbar: ['title','bold','italic','underline','strikethrough','fontScale','color','ol','ul','blockquote','code','table','hr','indent','outdent','alignment'],
+        allowedTags: ['br', 'span', 'a', 'img', 'b', 'strong', 'i', 'strike', 'u', 'font', 'p', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'h1', 'h2', 'h3', 'h4', 'hr']
+      });
+      set_height();
+		</script>
+		
+		<script type="text/javascript">
+			//重写JS原生alert函数
+				window.alert=function(e){
+				  $("#can").show();
+					$('#can').load('./alert/alert_error.html',function(){
+  				  $('#error_info').text(' '+e);
+  					$('.opacity_bg').show();
+					});
+				}
+			function showModal(id){
+        console.log(id)
+        $(id).modal('show');
+      }
+		</script>
+		</body>		
+</html>

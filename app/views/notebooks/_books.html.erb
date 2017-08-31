@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+  <li><%= link_to "所有笔记",'','data-toggle' => 'tab',:remote => true %></li>
+  <% current_user.notebooks.each do |notebook| %>
+    <li><%= link_to notebook.name,'','data-toggle' => 'tab',:remote => true %></li>
+  <% end %>
+  <li>
+    <a type="button" title="添加笔记本" onclick="showModal('#addNotebook')">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+  </li>
+</ul>

@@ -24,7 +24,7 @@ module SessionsHelper
         !current_user.nil?
     end
 
-    def sifned_in_user
+    def signed_in_user
         unless signed_in?
             # store_location
             flash[:notice] = "账号在别处登录，请重新登录或修改密码"
@@ -40,7 +40,7 @@ module SessionsHelper
         session[:return_to] = request.fullpath
     end
 
-    def redirect_back_or
+    def redirect_back_or(default)
         redirect_to(session[:return_to] || default)
         session.delete(:return_to)
     end

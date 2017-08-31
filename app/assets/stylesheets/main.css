@@ -1,0 +1,122 @@
+/* 下拉按钮样式 */
+.drop-btn {
+    /*color: black;*/
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 容器 <div> - 需要定位下拉内容 */
+.drop-down {
+    position: relative;
+    display: inline-block;
+    height: 20px;
+}
+
+/* 下拉内容 (默认隐藏) */
+.drop-down-content {
+    display: none;
+    position: absolute;
+    /*background-color: #f9f9f9;*/
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 99999;
+}
+
+/* 下拉菜单的链接 */
+.drop-down-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* 在鼠标移上去后显示下拉菜单 */
+.drop-down:hover .drop-down-content {
+    display: block;
+}
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+.drop-down:hover .drop-btn {
+    /*.active*/
+}
+
+#main {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    border: 1px solid #DDDDDD;
+}
+
+#main ul {
+    padding-bottom: 0;
+    margin-bottom: 0.1px; 
+}
+
+.notes {
+    padding-top: 0;
+}
+
+.notelist {
+    width: 25%;
+    margin-left: 0;
+    margin-right: 0;
+    /*display: inline;*/
+    border-right: 1px solid #DDDDDD;
+    float:left;
+    position: relative;
+    overflow: auto;
+}
+
+.add-note {
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+    height: 40px;
+    line-height:40px;
+}
+
+.editor {
+    width: 74%;
+    /*height: 100%;*/
+    /*display: inline;*/
+    float:right;
+    /*border: 1px solid red;*/
+}
+
+.title {
+    position: relative;
+    margin: 10px 0 0 0;
+}
+
+.save {
+    width: 150px;
+}
+
+
+.simditor {
+    margin-top: 20px;
+}
+
+.active-book {
+    background-color: #EEEEEE;
+    color: #ff0045;
+}
+
+.search {
+    background-color: #DDDDDD;
+}
+
+.simditor-body {
+    overflow: auto;
+}
+
+/*.pc_top_first h3,.pc_top_second h3,.pc_top_third h3{
+	font-size:16px;
+	margin:0 0 0 15px;
+	color:#ecf0f1;
+	font-family:'微软雅黑';
+	float: left;
+}*/
+
+

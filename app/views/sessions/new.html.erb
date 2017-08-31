@@ -10,16 +10,16 @@
       <%= form_for :session, url: sessions_path,method: :post,:html =>{class: 'form-horizontal'} do |f| %>
         <dt>
         	<div class='form-group'>
-            <%= f.label '邮 箱：',class: 'col-sm-2 control-label',for: 'email' %>
-            <div class="col-sm-10">
+            <%= f.label '邮 箱：',class: 'col-sm-3 control-label',for: 'email' %>
+            <div class="col-sm-7">
               <%= f.text_field :email,tabindex: '1',class: 'form-control',id: 'email' %>
             </div>
         	</div>
         </dt>
         <dt>
         	<div class='form-group'>
-            <%= f.label '密 码：',class: 'col-sm-2 control-label' %>
-            <div class="col-sm-10">
+            <%= f.label '密 码：',class: 'col-sm-3 control-label' %>
+            <div class="col-sm-7">
               <%= f.password_field :password,tabindex: '2',class: 'form-control' %>
             </div>
           </div>

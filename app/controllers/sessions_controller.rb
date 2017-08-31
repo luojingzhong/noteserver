@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
         user = User.find_by(email:params[:session][:email])
         if user && user.authenticate(params[:session][:password])
             sign_in user
-            redirect_back_or users_path
+            redirect_back_or user
         else
             flash[:notice] = "邮箱或密码错误"
             redirect_to root_path

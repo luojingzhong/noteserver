@@ -1,9 +1,5 @@
+@import "bootstrap-sprockets";
 @import "bootstrap";
-body{
-	background:#232332;
-	overflow:hidden;
-	font-family:'微软雅黑';
-}
 .global{
 	width:1px;
 	height:1px;
@@ -87,12 +83,6 @@ body{
 }
 dt{
 	margin-bottom:20px;
-}
-.header{
-	height:55px;
-	color:#eee;
-	background:#13A89E;
-	text-align:center;
 }
 h3{
 	line-height:55px;

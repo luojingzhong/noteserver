@@ -8,37 +8,35 @@
         </div>
       </dt>
       <%= form_for @user,method: :post,:html =>{class: 'form-horizontal'} do |f| %>
-        <dt>
-          <%= render 'shares/error_messages',target: @user %>
-        </dt>
+        <%= render 'shares/error_messages',target: @user %>
         <dt>
           <div class='form-group'>
-            <%= f.label '用 户 名：',class: 'col-sm-2 control-label' %>
-            <div class="col-sm-10">
+            <%= f.label '用 户 名：',class: 'col-sm-3 control-label' %>
+            <div class="col-sm-7">
               <%= f.text_field :name,class: 'form-control' %>
             </div>
           </div>
         </dt>
         <dt>
           <div class='form-group'>
-            <%= f.label '邮 箱：',class: 'col-sm-2 control-label',for: 'email' %>
-            <div class="col-sm-10">
+            <%= f.label '邮 箱：',class: 'col-sm-3 control-label',for: 'email' %>
+            <div class="col-sm-7">
               <%= f.text_field :email,class: 'form-control',id: 'email' %>
             </div>
           </div>
         </dt>
         <dt>
           <div class='form-group'>
-            <%= f.label '密 码：',class: 'col-sm-2 control-label' %>
-            <div class="col-sm-10">
+            <%= f.label '密 码：',class: 'col-sm-3 control-label' %>
+            <div class="col-sm-7">
               <%= f.password_field :password,class: 'form-control',id: 'password' %>
             </div>
           </div>
         </dt>
         <dt>
           <div class='form-group'>
-            <%= f.label '确 认 密 码：',class: 'col-sm-2 control-label' %>
-            <div class="col-sm-10">
+            <%= f.label '确 认 密 码：',class: 'col-sm-3 control-label' %>
+            <div class="col-sm-7">
               <%= f.password_field :password_confirmation,class: 'form-control',id:'password_confirmation' %>
             </div>
           </div>

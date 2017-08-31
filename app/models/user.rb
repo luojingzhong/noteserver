@@ -4,11 +4,12 @@ class User < ActiveRecord::Base
                      length: { maximum: 30 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true,
-                      format: { with: VALID_EMAIL_REGEX, message: "邮箱格式不正确" },
+                      format: { with: VALID_EMAIL_REGEX, message: "格式不正确" },
                       uniqueness: { case_sensitive: false }
     validates :password, length: { minimum: 6}
     before_save { self.email = email.downcase }
     before_create :create_remember_token
+    has_many :notebooks, dependent: :destroy
 
     def User.new_remember_token
         SecureRandom.urlsafe_base64
