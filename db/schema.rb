@@ -13,18 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20170828055647) do
 
-  create_table "notebooks", force: true do |t|
-    t.string   "name"
+  create_table "notebooks", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.string   "email"
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "password_digest", limit: 255
+    t.string   "remember_token",  limit: 255
+    t.string   "email",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
