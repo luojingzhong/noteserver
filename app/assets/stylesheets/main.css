@@ -98,11 +98,6 @@
     margin-top: 20px;
 }
 
-.active-book {
-    background-color: #EEEEEE;
-    color: #ff0045;
-}
-
 .search {
     background-color: #DDDDDD;
 }
@@ -111,12 +106,39 @@
     overflow: auto;
 }
 
-/*.pc_top_first h3,.pc_top_second h3,.pc_top_third h3{
-	font-size:16px;
-	margin:0 0 0 15px;
-	color:#ecf0f1;
-	font-family:'微软雅黑';
-	float: left;
-}*/
+.nav-tabs>li>div {
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: #337ab7;
+    background-color: transparent;
+}
 
+.nav-tabs > li.active > div, .nav-tabs > li.active > div:hover, .nav-tabs > li.active > div:focus {
+    color: #555555;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
 
+.nav-tabs > li > div:hover {
+    border-color: #eeeeee #eeeeee #ddd;
+}
+
+.nav > li > div:hover, .nav > li > div:focus {
+    background-color: #eeeeee;
+}
+
+.nav-tabs>li>div:-webkit-any-link {
+    color: -webkit-link;
+    cursor: auto;
+}
+
+.btn-group a {
+    text-decoration: none;
+}

@@ -16,6 +16,7 @@
       <link rel="shortcut icon" href="ico/favico.ico"> -->
     </head>
     <body>
+      <!-- 新建笔记本  -->
       <div class="modal fade" id="addNotebook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -30,6 +31,27 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
               <%= f.submit '新增',class: 'btn btn-primary' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!-- 重命名笔记本 -->
+      <div class="modal fade" id="renameNotebook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <%= form_for @book=Notebook.new,url: notebook_path,remote: true,method: :put do|f| %>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">重命名笔记本</h4>
+            </div>
+            <div class="modal-body">
+              <%= f.text_field :id,type: 'hidden' %>
+              <%= f.text_field :name,class: 'form-control',placeholder: '请输入新笔记本名' %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <%= f.submit '保存',class: 'btn btn-primary' %>
             </div>
             <% end %>
           </div>
@@ -81,7 +103,7 @@
         <div class="notes">
           <div id="notes" class="notelist">
             <div class="add-note text-center">
-              <a type="button">
+              <a id="addNote" type="button" style="display: none;" onclick="showModal('#addNote')">
                 添加笔记
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </a>
@@ -172,7 +194,6 @@
 					});
 				}
 			function showModal(id){
-        console.log(id)
         $(id).modal('show');
       }
 		</script>
