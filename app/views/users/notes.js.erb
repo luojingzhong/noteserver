@@ -1,4 +1,8 @@
 $("#addNote").hide();
+$("#saveNote").attr("disabled",'disabled');
 $('.nav-tabs li').removeClass('active');
 $('#allNotes').addClass('active');
 $("#notelist").html("<%= escape_javascript(render('notes/note',target: @notes)) %>");
+$("#editNoteTitle").val('');
+editor.setValue('');
+$("#notelist").find('a:first').click();

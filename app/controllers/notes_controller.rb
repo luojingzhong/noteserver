@@ -18,7 +18,6 @@ class NotesController < ApplicationController
 
     def edit
         @note = current_user.notes.find_by(id: params[:id])
-        puts @note.content
         respond_to do |format|
             format.js
         end
@@ -28,7 +27,6 @@ class NotesController < ApplicationController
         @note = current_user.notes.find_by(id: params[:note][:id])
         @note.title = params[:note][:title]
         @note.content = params[:note][:content]
-        puts params[:note][:content]
         @note.save
         respond_to do |format|
             format.js
