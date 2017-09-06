@@ -1,0 +1,4 @@
+$("#editNoteTitle").val('<%= @note.title %>');
+$("#saveNote").removeAttr("disabled");
+$("#note_id").val('<%= @note.id %>');
+editor.setValue("<%= escape_javascript(render('content',target: @note)) %>")

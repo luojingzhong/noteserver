@@ -1,2 +1,10 @@
-$("#notebooks").html("<%= escape_javascript(render('notebooks/books')) %>");
-$('#renameNotebook').modal('hide');
+<% if @book.errors.full_messages.any? %>
+    <% @book.errors.full_messages.each do |msg| %>
+        $("#notebookUpdateError").append('<p><%= msg %></p>');
+    <% end %>
+    $("#notebookUpdateError").removeClass('hidden');
+<% else %>
+    $("#notebooks").html("<%= escape_javascript(render('notebooks/books')) %>");
+    $('#renameNotebook').modal('hide');
+    $("#book_<%= @book.id %>").addClass('active');
+<% end %>

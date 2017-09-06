@@ -1,0 +1,4 @@
+$("#addNote").hide();
+$('.nav-tabs li').removeClass('active');
+$('#allNotes').addClass('active');
+$("#notelist").html("<%= escape_javascript(render('notes/note',target: @notes)) %>");

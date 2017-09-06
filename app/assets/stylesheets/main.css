@@ -142,3 +142,12 @@
 .btn-group a {
     text-decoration: none;
 }
+
+.note-delete {
+    float: right;
+    display: none;
+}
+
+#notelist tr td:hover .note-delete{
+    display: block;
+}

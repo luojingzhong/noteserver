@@ -2,12 +2,18 @@
   activerecord:
     models: 
       user: "用户"
+      notebook: "笔记本"
+      note: "笔记"
     attributes: 
       user: 
         name: '用户名'
         password: '密码'
         password_confirmation: "确认密码"
         email: 'Email'
+      notebook:
+        name: "笔记本名"
+      note:
+        title: "笔记标题"
     errors: 
       format: '%{attribute}%{message}'
       messages: 

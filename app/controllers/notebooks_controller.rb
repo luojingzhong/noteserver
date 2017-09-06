@@ -2,7 +2,8 @@ class NotebooksController < ApplicationController
     before_action :signed_in_user
 
     def create
-        @book = current_user.notebooks.create(name: params[:notebook][:name])
+        @book = current_user.notebooks.build(notebook_params)
+        @book.save
         respond_to do |format|
             format.js
         end
@@ -10,7 +11,8 @@ class NotebooksController < ApplicationController
 
     def update
         @book = current_user.notebooks.find_by(id:params[:notebook][:id])
-        @book.update_attribute(:name,params[:notebook][:name])
+        @book.name = params[:notebook][:name]
+        @book.save
         respond_to do |format|
             format.js
         end
@@ -23,4 +25,9 @@ class NotebooksController < ApplicationController
             format.js
         end
     end
+
+    private
+        def notebook_params
+            params.require(:notebook).permit(:name)
+        end
 end

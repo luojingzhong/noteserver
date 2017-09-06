@@ -1,3 +1,10 @@
-$("#notebooks").html("<%= escape_javascript(render('notebooks/books')) %>");
-$("#addNotebook").modal('hide');
-$("#book_<%= @book.id %>").click();
+<% if @book.errors.full_messages.any? %>
+    <% @book.errors.full_messages.each do |msg| %>
+        $("#notebookError").append('<p><%= msg %></p>');
+    <% end %>
+    $("#notebookError").removeClass('hidden');
+<% else %>
+    $("#notebooks").html("<%= escape_javascript(render('notebooks/books')) %>");
+    $("#addNotebook").modal('hide');
+    $("#book_<%= @book.id %>").addClass('active');
+<% end %>

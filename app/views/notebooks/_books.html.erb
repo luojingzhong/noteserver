@@ -1,9 +1,9 @@
 <ul class="nav nav-tabs">
-  <li><%= link_to "所有笔记",'','data-toggle' => 'tab',:remote => true %></li>
+  <li id='allNotes'><%= link_to "所有笔记",notes_user_path(current_user),:remote => true %></li>
   <% current_user.notebooks.each do |notebook| %>
     <li id="book_<%= notebook.id %>">
       <div class="btn-group">
-        <%= link_to notebook.name,'','data-toggle' => 'tab',:remote => true %>
+        <%= link_to notebook.name,notes_path(notebook_id: notebook.id),:remote => true %>
         <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="caret"></span>
           <span class="sr-only">Toggle Dropdown</span>

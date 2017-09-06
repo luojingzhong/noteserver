@@ -26,7 +26,10 @@
               <h4 class="modal-title" id="myModalLabel">添加笔记本</h4>
             </div>
             <div class="modal-body">
-              <%= f.text_field :name,class: 'form-control',placeholder: '请输入笔记本名' %>
+              <div class="form-group">
+                <%= f.text_field :name,class: 'form-control',placeholder: '请输入笔记本名' %>
+              </div>
+              <div id="notebookError" class="alert alert-danger hidden" role="alert"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -47,11 +50,38 @@
             </div>
             <div class="modal-body">
               <%= f.text_field :id,type: 'hidden' %>
-              <%= f.text_field :name,class: 'form-control',placeholder: '请输入新笔记本名' %>
+              <div>
+                <%= f.text_field :name,class: 'form-control',placeholder: '请输入新笔记本名',id: 'updateNotebook' %>
+              </div>
+              <div id="notebookUpdateError" class="alert alert-danger hidden" role="alert"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
               <%= f.submit '保存',class: 'btn btn-primary' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!-- 新建笔记  -->
+      <div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <%= form_for @book=Note.new,remote: true do|f| %>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">添加笔记</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <%= f.text_field :notebook_id,type: 'hidden' %>
+                <%= f.text_field :title,class: 'form-control',placeholder: '请输入笔记名' %>
+              </div>
+              <div id="noteError" class="alert alert-danger hidden" role="alert"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <%= f.submit '新增',class: 'btn btn-primary' %>
             </div>
             <% end %>
           </div>
@@ -103,39 +133,29 @@
         <div class="notes">
           <div id="notes" class="notelist">
             <div class="add-note text-center">
-              <a id="addNote" type="button" style="display: none;" onclick="showModal('#addNote')">
+              <a id="addNote" type="button" style="display: none;" onclick="showModal('#addNoteModal')">
                 添加笔记
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </a>
             </div>
             <div>
               <table class="table table-striped">
-                <tr>
-                  <td>12</td>
-                </tr>
-                <tr>
-                  <td>12</td>
-                </tr>
-                <tr>
-                  <td>12</td>
-                </tr>
-                <tr>
-                  <td>12</td>
-                </tr>
-                <tr>
-                  <td>12</td>
-                </tr>
+                <tbody id="notelist">
+                  <%= render 'notes/note',target: current_user.notes.order('updated_at desc') %>
+                </tbody>
               </table>
             </div>
           </div>
           <div id="editor" class="editor">
-            <%= form_tag edit_user_path(current_user),method: 'get',remote: true,:multipart => true do %>
+            <%= form_tag note_path(current_user),method: 'PUT',remote: true,:multipart => true do %>
               <div class="input-group title">
-                <%= text_field 'note','title',class: 'form-control',placeholder: '请输入笔记标题' %>
+                <%= text_field 'note','id',type: 'hidden' %>
+                <%= text_field 'note','title',class: 'form-control',placeholder: '请输入笔记标题',id: 'editNoteTitle' %>
                 <div class="input-group-btn">
-                  <%= submit_tag "保 存",class: 'btn btn-primary save' %>
+                  <%= submit_tag "保 存",class: 'btn btn-primary save',disabled: 'disabled',id: 'saveNote' %>
                 </div>
               </div>
+              <div id="noteEditError" class="alert alert-danger hidden" style="margin-top: 10px;" role="alert"></div>
               <%= text_area 'note','content',id: 'myEditor' %>
             <% end %>
           </div>
@@ -160,7 +180,7 @@
 				get_dom('notes').style.height=(pc_height)+'px';
         get_dom('editor').style.height=(pc_height)+'px';
         // get_dom('myEditor').style.height=(pc_height-100)+'px';
-        $('.simditor-body').css('height',(pc_height-150)+'px')
+        $('.simditor-body').css('height',(pc_height-200)+'px')
 			}
 			function myEditorWidth(){
 				var dom=get_dom('third_side_right');
@@ -175,7 +195,7 @@
 				$('.edui-container,.edui-editor-body').width(width);
 				$('#myEditor').width(width-20);
 			};
-      var editor = new Simditor({
+      editor = new Simditor({
         textarea: $('#myEditor'),
         placeholder: '请输入正文',
         toolbar: ['title','bold','italic','underline','strikethrough','fontScale','color','ol','ul','blockquote','code','table','hr','indent','outdent','alignment'],
@@ -185,17 +205,21 @@
 		</script>
 		
 		<script type="text/javascript">
-			//重写JS原生alert函数
-				window.alert=function(e){
-				  $("#can").show();
-					$('#can').load('./alert/alert_error.html',function(){
-  				  $('#error_info').text(' '+e);
-  					$('.opacity_bg').show();
-					});
-				}
 			function showModal(id){
         $(id).modal('show');
       }
+      $('#addNotebook').on('hidden.bs.modal', function (e) {
+        $("#notebook_name").val('');
+        $("#notebookError").empty().addClass('hidden');
+      })
+      $('#renameNotebook').on('hidden.bs.modal', function (e) {
+        $("#updateNotebook").val('');
+        $("#notebookUpdateError").empty().addClass('hidden');
+      })
+      $('#addNoteModal').on('hidden.bs.modal', function (e) {
+        $("#note_title").val('');
+        $("#noteError").empty().addClass('hidden');
+      })
 		</script>
 		</body>		
 </html>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :signed_in_user, only: [:edit,:show]
+    before_action :signed_in_user, only: [:edit,:show,:notes]
     layout false,only: [:show]
 
     def new
@@ -18,6 +18,13 @@ class UsersController < ApplicationController
 
     def edit
         @user = User.find_by(id:params[:id])
+    end
+
+    def notes
+        @notes = current_user.notes
+        respond_to do |format|
+            format.js
+        end
     end
 
     private

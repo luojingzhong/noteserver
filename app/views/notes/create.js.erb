@@ -1,0 +1,9 @@
+<% if @note.errors.any? %>
+    <% @note.errors.full_messages.each do |msg| %>
+        $("#noteError").append('<p><%= msg %></p>');
+    <% end %>
+    $("#noteError").removeClass('hidden');
+<% else %>
+    $("#addNoteModal").modal('hide');
+    $("#book_<%= @note.notebook_id %>").find("a:first").click();
+<% end %>
