@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs">
-  <li id='allNotes'><%= link_to "所有笔记",notes_user_path(current_user),:remote => true %></li>
+  <li id='allNotes' class="active"><%= link_to "所有笔记",notes_user_path(current_user),:remote => true %></li>
   <% current_user.notebooks.each do |notebook| %>
     <li id="book_<%= notebook.id %>">
       <div class="btn-group">

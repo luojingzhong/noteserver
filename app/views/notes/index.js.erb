@@ -3,7 +3,6 @@ $("#saveNote").attr("disabled",'disabled');
 $('.nav-tabs li').removeClass('active');
 $('#book_<%= @book_id %>').addClass('active');
 $('#note_notebook_id').val('<%= @book_id %>')
-$("#notelist").html("<%= escape_javascript(render('notes/note',target: @notes)) %>");
 $("#editNoteTitle").val('');
 editor.setValue('');
-$("#notelist").find('a:first').click();
+$("#notelist").html("<%= escape_javascript(render('notes/note',target: @notes)) %>");

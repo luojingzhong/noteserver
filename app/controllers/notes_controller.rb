@@ -41,6 +41,13 @@ class NotesController < ApplicationController
         end
     end
 
+    def search
+        @notes = current_user.notes.where("title like '%#{params[:note][:title]}%'")
+        respond_to do |format|
+            format.js
+        end
+    end
+
     private
         def note_params
             params.require(:note).permit(:title,:notebook_id)

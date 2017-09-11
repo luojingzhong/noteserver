@@ -1,0 +1,4 @@
+$("#editNoteTitle").val('');
+editor.setValue('');
+$('.nav-tabs li').removeClass('active');
+$("#notelist").html("<%= escape_javascript(render('notes/note',target: @notes)) %>");

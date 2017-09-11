@@ -7,5 +7,9 @@ Noteserver::Application.routes.draw do
   end
   resources :sessions,      only: [:new, :create, :destroy]
   resources :notebooks,     only: [:create,:destroy,:update]
-  resources :notes,         only: [:index,:create,:destroy,:update,:edit]
+  resources :notes,         only: [:index,:create,:destroy,:update,:edit] do
+    collection do
+      get :search
+    end
+  end
 end
