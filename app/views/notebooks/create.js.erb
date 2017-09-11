@@ -6,5 +6,5 @@
 <% else %>
     $("#notebooks").html("<%= escape_javascript(render('notebooks/books')) %>");
     $("#addNotebook").modal('hide');
-    $("#book_<%= @book.id %>").addClass('active');
+    $("#book_<%= @book.id %>").find('a:first').click();
 <% end %>

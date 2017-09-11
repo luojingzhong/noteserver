@@ -25,7 +25,8 @@ group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'factory_girl_rails','4.2.1'
   gem 'faker', '1.1.2'
+  gem 'minitest', '5.10.3'
 end
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '3.1.2'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'nokogiri', '1.6.8.1'

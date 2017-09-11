@@ -151,3 +151,7 @@
 #notelist tr td:hover .note-delete{
     display: block;
 }
+
+.glyphicon{
+    cursor: pointer;
+}

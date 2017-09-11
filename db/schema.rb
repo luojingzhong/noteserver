@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20170905081305) do
 
   create_table "notebooks", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
