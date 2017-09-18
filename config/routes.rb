@@ -12,4 +12,13 @@ Noteserver::Application.routes.draw do
       get :search
     end
   end
+  resources :shares do
+    collection do
+      get :load_more
+      get :search
+    end
+    member do
+      post :collection
+    end
+  end
 end

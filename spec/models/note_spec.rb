@@ -8,6 +8,7 @@ describe Note do
     it { expect(@note).to respond_to(:user) }
     it { expect(@note).to respond_to(:title) }
     it { expect(@note).to respond_to(:content) }
+    it { expect(@note).to respond_to(:share) }
 
     describe "当title为空" do
         before { @note.title = " " }

@@ -1,0 +1,4 @@
+<% unless @share.nil? %>
+	$(".panel-title").text('<%= @share.title %>')
+	$(".panel-body").html('<%= escape_javascript(render("notes/content",target: @share)) %>')
+<% end %>

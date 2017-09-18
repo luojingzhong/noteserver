@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+      <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+      <%= csrf_meta_tags %>
+      <meta charset="utf-8">
+      <title>共享笔记</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="x-pjax-version" content="v173">
+    </head>
+    <body>
+      <nav class="navbar navbar-inverse navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">NOTES</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          	<% if current_user %>
+	            <ul class="nav navbar-nav navbar-right">
+	              <li><%= link_to '我的笔记',user_path(current_user) %></li>
+	              <li class="drop-down dropdown">
+	                <a href="#" class="drop-btn dropdown-toggle" data-toggle="dropdown">
+	                  <%= current_user.name %>
+	                  <b class="caret"></b>
+	                </a>
+	                <div class="drop-down-content">
+	                  <%= link_to '退出',session_path(current_user),method: 'delete' %>
+	                  <!-- <%= link_to '修改密码',edit_user_path(current_user) %> -->
+	                </div>
+	              </li>
+	            </ul>
+	            <% end %>
+            <%= form_tag search_shares_path,class: 'navbar-form navbar-right',method: :get, remote: true do %>
+              <div class="input-group">
+                <%= text_field 'share','title',class: 'form-control search',placeholder: '请输入笔记标题' %>
+                <span class="input-group-btn">
+                  <%= submit_tag "搜索",class: 'btn btn-default active' %>
+                </span>
+              </div>
+            <% end %>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <div id="main">
+        <div class="notes">
+          <div id="notes" class="notelist">
+            <div>
+              <table class="table table-striped">
+                <tbody id="sharelist">
+                  <%= render 'shares/share',target: @shares %>
+                </tbody>
+                <tfoot id="loadMore">
+                	<tr><td class="text-center"><%= link_to '加载更多...','javascript:void(0)',onclick: 'loadMore()' %></td></tr>
+                </tfoot>
+                <tfoot id="noMore" style="display: none;">
+                	<tr><td class="text-center"><a type="button">没有更多了...</a></td></tr>
+                </tfoot>
+                <% if @shares.length < SharesHelper::SHOWCOUNT %>
+	                <script type="text/javascript">
+	                	$("#loadMore").hide();
+										$("#noMore").show();
+	                </script>
+                <% end %>
+              </table>
+            </div>
+          </div>
+          <div id="detail" class="editor">
+          	<div class="panel panel-default">
+						  <div class="panel-heading">
+						    <h4 class="panel-title text-center"></h4>
+						  </div>
+						  <div class="panel-body">
+						    
+						  </div>
+						</div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-fixed-bottom">
+        <footer class="text-center">
+          <p>&copy; 2017 jiufong@126.com</p>
+          <div style='position:absolute;top:5PX;height:30px;right:20px;line-height:26px;border:1px solid #0E7D76;display:none;background:#fff'>
+            <strong style='color:#0E7D76;margin:0 10px;'></strong>
+          </div>
+        </footer>
+      </div>
+			<script type="text/javascript">
+				page = 1;
+				title = ""
+				function loadMore(){
+					$.ajax({
+						url: '<%= load_more_shares_path %>',
+						type: 'get',
+						async: false,
+						dataType: 'json',
+						data: {page: page,title: title},
+						success:function(result){
+							if (result.length < 20) {
+								$("#loadMore").hide();
+								$("#noMore").show();
+							}
+							for(index in result){
+								$("#sharelist").append("<tr><td>"+ result[index].title +"</td></tr>");
+							} 
+							page += 1;
+						}
+					});
+				}
+
+				//加载DOM之后处理页面高度
+				function get_dom(e){
+					return document.getElementById(e);
+				}
+				function set_height(){
+					var pc_height=window.innerHeight;
+					pc_height=pc_height-145;
+					get_dom('notes').style.height=(pc_height)+'px';
+	        get_dom('detail').style.height=(pc_height)+'px';
+	        // get_dom('myEditor').style.height=(pc_height-100)+'px';
+	        $('.simditor-body').css('height',(pc_height-200)+'px')
+				}
+				
+				//改变窗口大小时调整页面尺寸
+				window.onresize=function(){
+					set_height();
+					var width=$('#third_side_right').width()-35;
+					$('.edui-container,.edui-editor-body').width(width);
+					$('#myEditor').width(width-20);
+				};
+	      set_height();
+			</script>
+		</body>		
+</html>

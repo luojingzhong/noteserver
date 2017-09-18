@@ -143,15 +143,29 @@
     text-decoration: none;
 }
 
-.note-delete {
+.note-operation {
     float: right;
-    display: none;
+    visibility: hidden;
+    margin-left: 5px;
 }
 
-#notelist tr td:hover .note-delete{
-    display: block;
+#notelist tr td:hover .note-operation{
+    visibility: visible;
 }
 
 .glyphicon{
     cursor: pointer;
+}
+
+.panel-title{
+    height: 30px;
+}
+
+.panel-body{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#sharelist td:hover .note-operation{
+    visibility: visible;
 }

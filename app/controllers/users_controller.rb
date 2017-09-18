@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     end
 
     def notes
-        @notes = current_user.notes
+        @notes = current_user.notes.order('updated_at DESC')
         respond_to do |format|
             format.js
         end

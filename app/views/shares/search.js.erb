@@ -1,0 +1,7 @@
+$("#sharelist").empty();
+$("#sharelist").html("<%= escape_javascript(render('shares/share',target: @shares)) %>");
+title = $("#share_title").val();
+<% if @shares.length < SharesHelper::SHOWCOUNT %>
+	$("#loadMore").hide();
+	$("#noMore").show();
+<% end %>

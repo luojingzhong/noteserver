@@ -2,8 +2,8 @@
   <tr id="note_<%= note.id %>">
     <td>
       <%= link_to note.title,edit_note_path(note),remote: true %>
-      <!-- <a class="glyphicon glyphicon-trash note-delete" title="删除" aria-hidden="true"></a> -->
-      <%= link_to '',note_path(note),class: 'glyphicon glyphicon-trash note-delete',remote: true,title: "删除",method: :delete,data: {confirm: "是否确定删除？"} %>
+      <%= link_to '',note_path(note),class: 'glyphicon glyphicon-trash note-operation',remote: true,title: "删除",method: :delete,data: {confirm: "是否确定删除？"} %>
+      <%= link_to '',shares_path(note_id: note),class: 'glyphicon glyphicon-share note-operation',remote: true,title: '分享', method: :post,data: { confirm: '分享后将不能取消分享，是否确定分享？' } %>
     </td>
   </tr>
 <% end %>

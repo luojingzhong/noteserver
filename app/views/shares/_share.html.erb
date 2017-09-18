@@ -1,0 +1,8 @@
+<% target.each do |item| %>
+	<tr>
+		<td>
+			<%= link_to item.title,share_path(item),remote: true %>
+			<%= link_to '',collection_share_path(item),class: 'glyphicon glyphicon-star-empty note-operation',title: '收藏',remote: true,method: :post %>
+		</td>
+	</tr>
+<% end %>
